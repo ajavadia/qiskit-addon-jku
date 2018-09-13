@@ -475,6 +475,7 @@ void QASMsimulator::Reset() {
 }
 
 void QASMsimulator::Simulate(int shots) {
+        PRINT_LOCATION
 	if(shots < 1) {
 		std::cerr << "Shots have to be greater than 0!" << std::endl;
 	}
@@ -482,6 +483,7 @@ void QASMsimulator::Simulate(int shots) {
 	std::map<std::string, int> result;
 
 	Simulate();
+        PRINT_LOCATION
 	if(!intermediate_measurement) {
 		ResetBeforeMeasurement();
 		for(int i = 0; i < shots; i++) {
@@ -891,13 +893,15 @@ void QASMsimulator::QASMqop(bool execute) {
 }
 
 void QASMsimulator::Simulate() {
-
+        PRINT_LOCATION
 	scan();
+        PRINT_LOCATION
 	check(Token::Kind::openqasm);
 	check(Token::Kind::real);
 	check(Token::Kind::semicolon);
 
 	do {
+            PRINT_LOCATION
 		if(sym == Token::Kind::qreg) {
 
 			scan();

@@ -26,6 +26,7 @@ by citing the following publication:
 #include <Simulator.h>
 
 Simulator::Simulator() {
+        PRINT_LOCATION
 	// TODO Auto-generated constructor stub
 	epsilon = mpreal(0.01);
 	for(int i = 0; i < MAXN; i++) {
@@ -43,6 +44,7 @@ Simulator::~Simulator() {
 }
 
 void Simulator::Reset() {
+        PRINT_LOCATION
 	QMDDdecref(circ.e);
 	QMDDgarbageCollect();
 	cleanCtable(std::vector<QMDDedge>());

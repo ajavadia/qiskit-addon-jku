@@ -41,13 +41,15 @@ by citing the following publication:
 #include <Simulator.h>
 //#include <QASMscanner.hpp>
 
+#define DEBUG_LOG std::cout
+
 using mpfr::mpreal;
 
 using namespace std;
 
 
 int main(int argc, char** argv) {
-
+        PRINT_LOCATION
 	namespace po = boost::program_options;
 	po::options_description description("Allowed options");
 	description.add_options()
@@ -62,9 +64,11 @@ int main(int argc, char** argv) {
 	;
 
 	po::variables_map vm;
+        PRINT_LOCATION
 	po::store(po::parse_command_line(argc, argv, description), vm);
+        PRINT_LOCATION
 	po::notify(vm);
-
+        PRINT_LOCATION
 	if (vm.count("help")) {
 	    cout << description << "\n";
 	    return 1;
@@ -76,7 +80,7 @@ int main(int argc, char** argv) {
 	}
 
 	srand(seed);
-
+        PRINT_LOCATION
 	QMDDinit(0);
 
 	if (vm.count("precision")) {
@@ -85,7 +89,7 @@ int main(int argc, char** argv) {
 #endif
 		Ctol = mpreal(vm["precision"].as<double>());
 	}
-
+        PRINT_LOCATION
 	Simulator* simulator;
 
 	if (vm.count("simulate_qasm")) {
@@ -99,6 +103,7 @@ int main(int argc, char** argv) {
 		cout << description << "\n";
 	    return 1;
 	}
+	PRINT_LOCATION
 
     auto t1 = chrono::high_resolution_clock::now();
 
@@ -107,18 +112,19 @@ int main(int argc, char** argv) {
 	} else {
 		simulator->Simulate(1);
 	}
+	PRINT_LOCATION
 
 	auto t2 = chrono::high_resolution_clock::now();
 	chrono::duration<float> diff = t2-t1;
 
 	delete simulator;
-
+        PRINT_LOCATION
 	if (vm.count("ps")) {
 		cout << endl << "SIMULATION STATS: " << endl;
 		cout << "  Number of applied gates: " << simulator->GetGatecount() << endl;
 		cout << "  Simulation time: " << diff.count() << " seconds" << endl;
 		cout << "  Maximal size of DD (number of nodes) during simulation: " << simulator->GetMaxActive() << endl;
 	}
-
+        PRINT_LOCATION
 	return 0;
 }

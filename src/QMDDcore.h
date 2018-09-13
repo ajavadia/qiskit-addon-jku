@@ -49,3 +49,7 @@ by citing the following publication:
 #include "QMDDreorder.h"  		// sifting
 #include "QMDDcircuit.h"		// procedures for building a QMDD from a circuit file
 
+#define PRINT_LOCATION \
+{ \
+	printf("In %s %s %d\n", __FILE__, __FUNCTION__, __LINE__);\
+}
