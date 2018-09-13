@@ -63,6 +63,10 @@ int main(int argc, char** argv) {
 		("precision", po::value<double>(), "two numbers are treated to be equal if their difference is smaller than this value")
 	;
 
+    std::cout << "ARGC = " << argc << std::endl;
+    for (unsigned n = 0; n < argc; ++n){
+        std::cout << "ARGV[" << n << "] = " << argv[n] << std::endl;
+    }
 	po::variables_map vm;
         PRINT_LOCATION
 	po::store(po::parse_command_line(argc, argv, description), vm);
