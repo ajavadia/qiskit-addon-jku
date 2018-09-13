@@ -95,6 +95,7 @@ int main(int argc, char** argv) {
 	if (vm.count("simulate_qasm")) {
 		string fname = vm["simulate_qasm"].as<string>();
 		if(fname == "") {
+                        std::cerr << "No QASM file given, reading from the standard input" << std::endl;
 			simulator = new QASMsimulator(vm.count("display_statevector"), vm.count("display_probabilities"));
 		} else {
 			simulator = new QASMsimulator(fname, vm.count("display_statevector"), vm.count("display_probabilities"));
